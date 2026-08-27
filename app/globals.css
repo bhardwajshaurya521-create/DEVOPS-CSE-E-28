@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --bg: #f7f7fb; --card: #ffffff; --text: #15151b; --muted: #6b6b78; --line: #ececf2; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: Arial, Helvetica, sans-serif; }
+button, input, select { font: inherit; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; }
+.btn { border-radius: 12px; padding: 10px 14px; font-weight: 700; cursor: pointer; border: 0; }
+.btn-primary { background: #17171d; color: white; }
+.btn-soft { background: #f0f0f5; color: #17171d; }
+.input { width: 100%; border: 1px solid #dedee7; border-radius: 12px; padding: 11px 12px; outline: none; background: white; }
+.input:focus { border-color: #9999a8; }
+.progress { height: 9px; border-radius: 99px; background: #eeeeF4; overflow: hidden; }
+.progress > div { height: 100%; border-radius: inherit; transition: width .25s; }
+@media (max-width: 700px) {
+  .desktop-only { display: none; }
+}

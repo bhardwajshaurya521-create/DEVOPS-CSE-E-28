@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String           @id @default(cuid())
+  name      String
+  email     String           @unique
+  createdAt DateTime         @default(now())
+  months    BudgetMonth[]
+  categories Category[]
+  expenses  Expense[]
+  payments  FuturePayment[]
+  budgets   CategoryBudget[]
+}
+
+model BudgetMonth {
+  id          String   @id @default(cuid())
+  userId      String
+  month       String   // YYYY-MM
+  pocketMoney Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, month])
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  icon      String   @default("wallet")
+  color     String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expenses  Expense[]
+  budgets   CategoryBudget[]
+
+  @@unique([userId, name])
+}
+
+model CategoryBudget {
+  id         String   @id @default(cuid())
+  userId     String
+  categoryId String
+  month      String
+  limit      Float
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, categoryId, month])
+}
+
+model Expense {
+  id            String   @id @default(cuid())
+  userId        String
+  categoryId    String
+  amount        Float
+  date          DateTime
+  paymentMethod String
+  note          String?
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category      Category @relation(fields: [categoryId], references: [id])
+}
+
+model FuturePayment {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  amount    Float
+  dueDate   DateTime
+  category  String
+  paid      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
