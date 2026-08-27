@@ -1,44 +1,21 @@
-# PocketWise — Student Personal Finance
+# PocketWise - Student Pocket Money Tracker
 
-A modern full-stack student pocket-money manager built with Next.js, Prisma/PostgreSQL, Tailwind CSS and Recharts.
+PocketWise is a full-stack student finance and pocket money tracking application built with Next.js, Prisma, and Tailwind CSS. It helps students track daily expenses, set budget caps, and maintain a smart daily spending limit.
 
 ## Features
-- Monthly pocket money
-- Reserved upcoming payments
-- Expense tracking
-- Category budgets + 70/90/100% warnings
-- Safe daily spending calculation
-- Spending donut chart
-- Transaction search/filter
-- "Can I afford this?" checker
-- Responsive mobile-first UI
-- PostgreSQL database schema ready for Vercel/Supabase
+- **Daily Spending Limit**: Automatically calculates a safe daily limit based on remaining budget and days left in the month.
+- **Expense Logging**: Categorized expense management with instant visual feedback.
+- **Budget Tracking**: Category-wise budget thresholds and progress indicators.
+- **Upcoming Payments**: Keeps fixed dues reserved so students never overspend.
 
-## Run locally
+## Tech Stack
+- **Framework**: Next.js (App Router)
+- **Database**: SQLite / PostgreSQL with Prisma ORM
+- **Styling**: Tailwind CSS
+- **Language**: TypeScript
 
-1. Install Node.js 20+.
-2. Create a PostgreSQL database (Supabase is an easy option).
-3. Copy `.env.example` to `.env` and set `DATABASE_URL`.
-4. Run:
+## Setup & Run
+1. Clone the repository
+2. Install dependencies:
    ```bash
    npm install
-   npx prisma db push
-   npm run db:seed
-   npm run dev
-   ```
-5. Open http://localhost:3000
-
-## Important
-This starter uses a demo user (`student@example.com`) so it can run immediately without an authentication provider. For a production/college submission, add Auth.js/Clerk/Supabase Auth and replace the demo user lookup with the logged-in user's ID.
-
-## Vercel
-Import the GitHub repository into Vercel, add `DATABASE_URL` under Project Settings → Environment Variables, then deploy. PostgreSQL can be provided by Supabase, Neon, or another managed provider.
-
-## Suggested next upgrades
-- Real authentication
-- Custom category creation UI
-- Edit/delete expenses
-- Recurring payments
-- Monthly history and reset screen
-- Export CSV/PDF
-- ML model for next-month expense forecasting
