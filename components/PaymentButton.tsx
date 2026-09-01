@@ -1,17 +1,45 @@
 'use client';
 import { useState } from 'react';
 
-export default function PaymentButton() {
+interface PaymentButtonProps {
+  amount: number;
+  onSuccess?: () => void;
+}
+
+export default function PaymentButton({ amount, onSuccess }: PaymentButtonProps) {
   const [loading, setLoading] = useState(false);
 
+  const loadScript = (src: string) => {
+    return new Promise((resolve) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
   const handlePayment = async () => {
+    if (!amount || amount <= 0) {
+      alert('Please enter a valid amount');
+      return;
+    }
+
     setLoading(true);
+    
+    // Load the Razorpay script dynamically
+    const resScript = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
+    if (!resScript) {
+      alert('Razorpay SDK failed to load. Check your internet connection.');
+      setLoading(false);
+      return;
+    }
+
     try {
-      // 1. Call your backend route to create an order
       const res = await fetch('/api/razorpay', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 500 }), // 500 INR test amount
+        body: JSON.stringify({ amount }),
       });
       const order = await res.json();
 
@@ -21,7 +49,6 @@ export default function PaymentButton() {
         return;
       }
 
-      // 2. Open Razorpay payment popup
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: order.amount,
@@ -29,8 +56,9 @@ export default function PaymentButton() {
         name: 'PocketWise',
         description: 'Pocket Money Deposit',
         order_id: order.id,
-        handler: function (response: any) {
+        handler: async function (response: any) {
           alert(`Success! Payment ID: ${response.razorpay_payment_id}`);
+          if (onSuccess) onSuccess();
         },
         theme: { color: '#4f46e5' },
       };
@@ -49,9 +77,9 @@ export default function PaymentButton() {
     <button
       onClick={handlePayment}
       disabled={loading}
-      className="bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition"
+      className="btn btn-primary"
     >
-      {loading ? 'Processing...' : 'Add Money via UPI / Card'}
+      {loading ? 'Processing...' : `Add ₹${amount} via UPI`}
     </button>
   );
 }

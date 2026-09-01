@@ -80,7 +80,7 @@ export default function Dashboard() {
         <button className="btn btn-primary" onClick={savePocket}>
           Update amount
         </button>
-        <PaymentButton/>
+        <PaymentButton amount={Number(pocketInput) || 0} />
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
@@ -132,7 +132,7 @@ export default function Dashboard() {
         </div>
         <div className="card p-5">
           <h2 className="font-black text-lg mb-5">Category budgets</h2>
-          <CategoryBudgets items={d?.budgets ?? []} onUpdate={load} />
+          <CategoryBudgets items={d?.budgets ?? []} />
         </div>
       </div>
     </div>
