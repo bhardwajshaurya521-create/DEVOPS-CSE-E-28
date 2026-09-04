@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     try {
       // Safely attempt to fetch expenses if the model exists
       const dbAny = prisma as any;
-      const model = dbAny.expense || dbAny.expenses || dbAny.Transaction;
+      const model = dbAny.expense || dbAny.Expense || dbAny.expenses;
       if (model && typeof model.findMany === 'function') {
         expenses = await model.findMany();
       }
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     const contextData = `User's current expenses data: ${JSON.stringify(expenses)}`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-3.7-flash',
       contents: [
         {
           role: 'user',
