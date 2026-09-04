@@ -1,5 +1,6 @@
 "use client";
 
+import FinancialChatbot from '@/components/FinancialChatbot';
 import { useEffect, useState } from "react";
 import PaymentButton from '@/components/PaymentButton';
 import { ExpenseButton } from "@/components/ExpenseButton";
@@ -134,6 +135,7 @@ export default function Dashboard() {
           <h2 className="font-black text-lg mb-5">Category budgets</h2>
           <CategoryBudgets items={d?.budgets ?? []} />
         </div>
+        <FinancialChatbot />
       </div>
     </div>
   );
