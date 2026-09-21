@@ -109,26 +109,25 @@ export default function Dashboard() {
         />
       </div>
 
-      <div className="card p-5 bg-black text-white">
-        <div className="flex items-center gap-2 text-sm text-white/60">
-          <Clock3 size={17} /> Smart daily limit
-        </div>
-        <div className="text-4xl font-black mt-2">
-          ₹{Math.round(d?.safeDaily ?? 0).toLocaleString()}
-        </div>
-        <p className="text-white/70 mt-1">
-          Safe to spend today if you want your money to last.
-        </p>
-        {d?.runoutDays != null && d.runoutDays < (d?.daysRemaining ?? 0) && (
-          <p className="mt-4 text-sm bg-white/10 rounded-xl p-3">
-            ⚠️ At current pace, money may run out in {d.runoutDays} days.
-          </p>
-        )}
-      </div>
-
+      <div className="card p-5 bg-slate-900 text-white shadow-xl">
+  <div className="flex items-center gap-2 text-sm text-gray-300">
+    <Clock3 size={17} />Smart daily limit
+  </div>
+  <div className="text-4xl font-extrabold text-white mt-2">
+    {Math.round(d?.safeDaily ?? 0).toLocaleString()}
+  </div>
+  <p className="text-gray-300 mt-1">
+    Safe to spend today if you want your money to last.
+  </p>
+  {d?.runoutDays != null && d.runoutDays < (d?.daysRemaining ?? 0) && (
+    <p className="mt-4 text-sm bg-white/10 rounded-xl p-3 text-white">
+      ⚠️ At current pace, money may run out in {d.runoutDays} days.
+    </p>
+  )}
+</div>
       <div className="grid lg:grid-cols-2 gap-5">
         <div className="card p-5">
-          <h2 className="font-black text-lg mb-4">Spending breakdown</h2>
+          <h2 className="font-bold text-white text-lg mb-4">Spending breakdown</h2>
           <SpendingChart data={d?.expensesByCategory ?? []} />
         </div>
         <div className="card p-5">
