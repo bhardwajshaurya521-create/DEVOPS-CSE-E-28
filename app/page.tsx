@@ -91,6 +91,7 @@ export default function Dashboard() {
           icon={<Wallet size={19} />}
         />
         <StatCard
+        //test update
           label="Reserved"
           value={`₹${(d?.reserved ?? 0).toLocaleString()}`}
           hint="Unpaid upcoming payments"
