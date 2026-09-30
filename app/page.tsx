@@ -108,6 +108,7 @@ export default function Dashboard() {
           value={`₹${(d?.available ?? 0).toLocaleString()}`}
           hint={`${d?.daysRemaining ?? 0} days left`}
           icon={<Wallet size={19} />}
+          //demo
         />
       </div>
 
