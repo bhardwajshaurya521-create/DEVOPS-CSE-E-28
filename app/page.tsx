@@ -98,6 +98,7 @@ export default function Dashboard() {
           icon={<LockKeyhole size={19} />}
         />
         <StatCard
+        //demo
           label="Spent"
           value={`₹${(d?.spent ?? 0).toLocaleString()}`}
           icon={<TrendingDown size={19} />}
