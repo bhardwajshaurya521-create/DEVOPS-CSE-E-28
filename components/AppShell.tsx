@@ -23,7 +23,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           {nav.map(([href, label, Icon]) => {
             const I = Icon as any;
             const active = pathname === href;
-            return <Link key={href as string} href={href as string}
+            return <Link key={href as string} href={href as any}
               className={`flex items-center gap-3 px-3 py-3 rounded-xl font-semibold ${active ? "bg-white shadow-sm" : "text-gray-500 hover:bg-white"}`}>
               <I size={19}/>{label as string}
             </Link>
@@ -37,7 +37,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <nav className="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t p-2 flex justify-around z-20">
         {nav.map(([href, label, Icon]) => {
           const I = Icon as any;
-          return <Link key={href as string} href={href as string} className="text-xs flex flex-col items-center gap-1 p-2 text-gray-600">
+          return <Link key={href as string} href={href as any} className="text-xs flex flex-col items-center gap-1 p-2 text-gray-600">
             <I size={20}/>{label as string}
           </Link>
         })}
